@@ -1,5 +1,5 @@
 # OpenBubi
-Open-source API for the Hungarian bike-rental system MOL Bubi
+Open-source Module for the Hungarian bike-rental system MOL Bubi
 
 ## What I've found so far
 
