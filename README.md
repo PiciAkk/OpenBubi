@@ -11,6 +11,8 @@ https://api-budapest.nextbike.net/maps/nextbike-live.json?domains=bh
 
 https://api-budapest.nextbike.net/maps/nextbike-live.flatjson?domains=bh
 
+https://api-budapest.nextbike.net/maps/nextbike-official.jsom?domains=bh
+
 `curl -X POST -F 'mobile=xxx' -F 'pin=xxx' -F 'apikey=Bbx3nGP291xEtDmq' -F 'show_errors=1' -F 'domain=bh' https://api-budapest.nextbike.net/api/v1.1/login.json`
 
 https://github.com/h0chi/nextbike-api-reverse-engineering
