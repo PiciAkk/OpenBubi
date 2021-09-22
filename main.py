@@ -1,10 +1,13 @@
 import openbubi
+import json
 
-map = openbubi.BubiMap("bkk")
+map = openbubi.BubiMap()
 user = openbubi.BubiUser("+36307339120", "314974")
 
-print(map.getNearestStationByAddress("Váci utca"))
-
+# print(map.getNearestStationByAddress("Bem Rakpart 56"))
+# print(map.getNearestStationByAddress("Hungary, Budapest, Lisznyai utca 5"))
+print(map.listAllBikesOnStation(map.getNearestStationByAddress("Krisztina tér")))
+# print(map.listAllBikes())
 # print(map.listAllStations())
 # print(map.getNearestStationByAddress("Hungary, Budapest, Móricz Zsigmond körtér"))
 # print("Current login key is " + user.getLoginKey())
