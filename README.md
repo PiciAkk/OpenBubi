@@ -1,4 +1,5 @@
 # OpenBubi
+![logo](https://github.com/PiciAkk/OpenBubi/blob/main/logo.png)
 Open-source Module for the Hungarian bike-rental system MOL Bubi
 
 ## What I've found so far

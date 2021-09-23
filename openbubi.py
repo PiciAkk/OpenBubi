@@ -60,10 +60,11 @@ class BubiMap:
 		stations = json.loads(BubiMap().listAllBikesFormatted())
 		for i in range(len(stations)):
 			currentStation = stations[i]
-			print(stationName)
-			print(currentStation)
-			if currentStation["name"] == stationName:
+			currentStationName = currentStation["name"][5:]
+			if currentStationName == stationName:
 				try:
-					return currentStation["bike_list"]
+					return json.dumps(currentStation["bike_list"])
 				except:
 					return "No bikes in station"
+	def countBikesOnStation(self, stationName):
+		return len(json.loads(BubiMap().listAllBikesOnStation(stationName)))
