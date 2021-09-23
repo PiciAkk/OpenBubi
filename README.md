@@ -2,7 +2,7 @@
 
 #### <p align="center"> Open-source Module for the Hungarian bike-rental system, MOL Bubi</p>
 
-<p align="center"><img src="logo.png" alt="logo" width="100"/></p>
+<p align="center"><img src="logo.png" alt="logo" width="200"/></p>
 
 
 ## What I've found so far
