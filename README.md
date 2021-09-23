@@ -1,11 +1,11 @@
 # <p align="center">OpenBubi</p>
 
-#### <p align="center"> Open-source module for the Hungarian bike-rental system, MOL Bubi</p>
+## <p align="center"> Open-source module for the Hungarian bike-rental system, MOL Bubi</p>
 
 <p align="center"><img src="logo.png" alt="logo" width="200"/></p>
 
 
-## What I've found so far
+### What I've found so far
 
 https://futar.bkk.hu/api/query/v1/ws/otp/api/where/bicycle-rental.json?key=bkk-web&version=4
 
@@ -23,4 +23,4 @@ https://github.com/h0chi/nextbike-api-reverse-engineering
 
 ---
 
-### Thanks for the help, [Brúnó Salomon](https://github.com/bru02)
+#### Thanks for the help, [Brúnó Salomon](https://github.com/bru02)
