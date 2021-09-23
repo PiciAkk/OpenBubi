@@ -1,6 +1,9 @@
-# OpenBubi
-![logo](https://github.com/PiciAkk/OpenBubi/blob/main/logo.png)
-Open-source Module for the Hungarian bike-rental system MOL Bubi
+# <p align="center">OpenBubi</p>
+
+#### <p align="center"> Open-source Module for the Hungarian bike-rental system, MOL Bubi</p>
+
+<p align="center"><img src="logo.png" alt="logo" width="100"/></p>
+
 
 ## What I've found so far
 
