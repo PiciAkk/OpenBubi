@@ -20,17 +20,36 @@ class BubiUser:
 			}
 		).text
 	def getScreenName(self):
-		return json.loads(BubiUser(self.mobile, self.pin).info())["user"]["screen_name"]
+		return json.loads(self.info())["user"]["screen_name"]
 	def getLoginKey(self):
-		return json.loads(BubiUser(self.mobile, self.pin).info())["user"]["loginkey"]
+		return json.loads(self.info())["user"]["loginkey"]
 	def rentBike(self, bikeNumber):
-		return "Coming soon..."
-		requests.post(
+		return requests.post(
 			'https://api-budapest.nextbike.net/api/rent.json',
 			data={
 				'bike': bikeNumber,
-				'loginkey': getLoginKey(),
+				'loginkey': self.getLoginKey(),
 				'apikey': 'Bbx3nGP291xEtDmq',
+				'show_errors': '1',
+				'domain': 'bh'
+			}
+		).text
+	def getActiveRentals(self):
+		return requests.post(
+			'https://api-budapest.nextbike.net/api/getOpenRentals.json',
+			data={
+				'apikey': 'Bbx3nGP291xEtDmq',
+				'loginkey': self.getLoginKey(),
+				'show_errors': '1',
+				'domain': 'bh'
+			}
+		).text
+	def getPaymentLinks(self):
+		return requests.post(
+			'https://api-budapest.nextbike.net/api/getPaymentLinks.json',
+			data={
+				'apikey': 'Bbx3nGP291xEtDmq',
+				'loginkey': self.getLoginKey(),
 				'show_errors': '1',
 				'domain': 'bh'
 			}
@@ -41,11 +60,11 @@ class BubiMap:
 	def listAllBikes(self):
 		return requests.get("https://api-budapest.nextbike.net/maps/nextbike-live.json?domains=bh").text
 	def listAllBikesFormatted(self):
-		return json.dumps(json.loads(BubiMap().listAllBikes())['countries'][0]['cities'][0]['places'])
+		return json.dumps(json.loads(self.listAllBikes())['countries'][0]['cities'][0]['places'])
 	def listAllStationsFormatted(self):
-		return json.dumps(json.loads(BubiMap().listAllStations())['data']['list'])
+		return json.dumps(json.loads(self.listAllStations())['data']['list'])
 	def getNearestStation(self, lat, lon):
-		stations = json.loads(BubiMap().listAllStationsFormatted())
+		stations = json.loads(self.listAllStationsFormatted())
 		differences = {}
 		for i in range(len(stations)):
 			currentStation = stations[i]
@@ -55,9 +74,9 @@ class BubiMap:
 		return next(iter(sortedDifferences))
 	def getNearestStationByAddress(self, address):
 		location = Nominatim(user_agent="OpenBubi").geocode(address)
-		return BubiMap().getNearestStation(location.latitude, location.longitude)
+		return self.getNearestStation(location.latitude, location.longitude)
 	def listAllBikesOnStation(self, stationName):
-		stations = json.loads(BubiMap().listAllBikesFormatted())
+		stations = json.loads(self.listAllBikesFormatted())
 		for i in range(len(stations)):
 			currentStation = stations[i]
 			currentStationName = currentStation["name"][5:]
@@ -67,4 +86,14 @@ class BubiMap:
 				except:
 					return "No bikes in station"
 	def countBikesOnStation(self, stationName):
-		return len(json.loads(BubiMap().listAllBikesOnStation(stationName)))
+		return len(json.loads(self.listAllBikesOnStation(stationName)))
+	def getCoordinateOfStation(self, stationName):
+		stations = json.loads(self.listAllStationsFormatted())
+		for i in range(len(stations)):
+			currentStation = stations[i]
+			currentStationName = currentStation["name"]
+			if currentStationName == stationName:
+				coordinates = {}
+				coordinates.update({"lat": currentStation["lat"]})
+				coordinates.update({"lon": currentStation["lon"]})
+				return json.dumps(coordinates)
