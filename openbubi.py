@@ -2,6 +2,7 @@ import os
 import requests
 import json
 import math
+import re
 from geopy.geocoders import Nominatim
 
 class BubiUser:
@@ -54,6 +55,26 @@ class BubiUser:
 				'domain': 'bh'
 			}
 		).text
+	def getSubscriptionInfo(self):
+		linkUrl = json.loads(self.getPaymentLinks())["paymentlinks"][0]["link_url"]
+		contents = requests.get(linkUrl).text
+		for i in contents.splitlines():
+			if "Érvényeség" in i:
+				endOfSubscription = i.strip()
+				endOfSubscription = endOfSubscription.replace("Érvényeség vége: ", "")
+		subscriptionInfo = {}
+		if "havi" in contents:
+			subscriptionInfo.update({"subscription_type": "monthly"})
+		elif "éves" in contents:
+			subscriptionInfo.update({"subscription_type": "annual"})
+		else:
+			subscriptionInfo.update({"subscription_type": None})
+		subscriptionInfo.update({"subscription_end": endOfSubscription})
+		return json.dumps(subscriptionInfo)
+	def getSubscriptionType(self):
+		return json.loads(self.getSubscriptionInfo())["subscription_type"]
+	def getEndOfSubscription(self):
+		return json.loads(self.getSubscriptionInfo())["subscription_end"]
 class BubiMap:
 	def listAllStations(self):
 		return requests.get("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/bicycle-rental.json?key=bkk-web&version=4").text

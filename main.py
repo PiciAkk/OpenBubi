@@ -4,7 +4,8 @@ import json
 map = openbubi.BubiMap()
 user = openbubi.BubiUser("+36307339120", "314974")
 
-print(user.getPaymentLinks())
+print(user.getSubscriptionType())
+print(user.getEndOfSubscription())
 # print(map.getCoordinateOfStation(map.getNearestStationByAddress("Bem Rakpart 56.")))
 # print(map.getNearestStationByAddress("Bem Rakpart 56"))
 # print(map.listAllBikes())
