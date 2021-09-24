@@ -2,7 +2,6 @@ import os
 import requests
 import json
 import math
-import re
 from geopy.geocoders import Nominatim
 
 class BubiUser:
