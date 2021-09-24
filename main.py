@@ -5,7 +5,6 @@ map = openbubi.BubiMap()
 user = openbubi.BubiUser("+36307339120", "314974")
 
 # print(map.getNearestStationByAddress("Bem Rakpart 56"))
-print(map.countBikesOnStation(map.getNearestStationByAddress("Móricz Zsigmond körtér")))
 # print(map.listAllBikes())
 # print(map.listAllStations())
 # print(map.getNearestStationByAddress("Hungary, Budapest, Móricz Zsigmond körtér"))
