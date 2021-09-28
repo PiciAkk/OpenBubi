@@ -74,6 +74,16 @@ class BubiUser:
 		return json.loads(self.getSubscriptionInfo())["subscription_type"]
 	def getEndOfSubscription(self):
 		return json.loads(self.getSubscriptionInfo())["subscription_end"]
+	def callOtherEndpoint(self, endpoint, userData):
+		dataToPost = userData
+		dataToPost.update({"apikey": "Bbx3nGP291xEtDmq"})
+		dataToPost.update({"loginkey": self.getLoginKey()})
+		dataToPost.update({"show_errors": "1"})
+		dataToPost.update({"domain": "bh"})
+		return requests.post(
+			f'https://api-budapest.nextbike.net{endpoint}',
+			data = dataToPost
+		)
 class BubiMap:
 	def listAllStations(self):
 		return requests.get("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/bicycle-rental.json?key=bkk-web&version=4").text
