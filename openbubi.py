@@ -83,7 +83,7 @@ class BubiUser:
 		return requests.post(
 			f'https://api-budapest.nextbike.net{endpoint}',
 			data = dataToPost
-		)
+		).text
 class BubiMap:
 	def listAllStations(self):
 		return requests.get("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/bicycle-rental.json?key=bkk-web&version=4").text
