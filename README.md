@@ -66,7 +66,7 @@ With these simple steps, we can make a program that takes a phone number, a pin,
 import openbubi
 import getpass
 
-phoneNumber = input("Please enter your phone number: ")
+phoneNumber = getpass.getpass("Please enter your phone number: ")
 pin = getpass.getpass("Please enter your pin: ")
 
 user = openbubi.BubiUser(phoneNumber, pin)
