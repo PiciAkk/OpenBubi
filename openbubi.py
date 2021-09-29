@@ -23,37 +23,22 @@ class BubiUser:
 		return json.loads(self.info())["user"]["screen_name"]
 	def getLoginKey(self):
 		return json.loads(self.info())["user"]["loginkey"]
+	def callOtherEndpoint(self, endpoint, userData):
+		dataToPost = userData
+		dataToPost.update({"apikey": "Bbx3nGP291xEtDmq"})
+		dataToPost.update({"loginkey": self.getLoginKey()})
+		dataToPost.update({"show_errors": "1"})
+		dataToPost.update({"domain": "bh"})
+		return requests.post(
+			f'https://api-budapest.nextbike.net{endpoint}',
+			data = dataToPost
+		).text
 	def rentBike(self, bikeNumber):
-		return requests.post(
-			'https://api-budapest.nextbike.net/api/rent.json',
-			data={
-				'bike': bikeNumber,
-				'loginkey': self.getLoginKey(),
-				'apikey': 'Bbx3nGP291xEtDmq',
-				'show_errors': '1',
-				'domain': 'bh'
-			}
-		).text
+		return callOtherEndpoint('/api/rent.json', {"bike": bikeNumber})
 	def getActiveRentals(self):
-		return requests.post(
-			'https://api-budapest.nextbike.net/api/getOpenRentals.json',
-			data={
-				'apikey': 'Bbx3nGP291xEtDmq',
-				'loginkey': self.getLoginKey(),
-				'show_errors': '1',
-				'domain': 'bh'
-			}
-		).text
+		return callOtherEndpoint('/api/getOpenRentals.json', {})
 	def getPaymentLinks(self):
-		return requests.post(
-			'https://api-budapest.nextbike.net/api/getPaymentLinks.json',
-			data={
-				'apikey': 'Bbx3nGP291xEtDmq',
-				'loginkey': self.getLoginKey(),
-				'show_errors': '1',
-				'domain': 'bh'
-			}
-		).text
+		return callOtherEndpoint('/api/getPaymentLinks.json', {})
 	def getSubscriptionInfo(self):
 		linkUrl = json.loads(self.getPaymentLinks())["paymentlinks"][0]["link_url"]
 		contents = requests.get(linkUrl).text
@@ -74,16 +59,12 @@ class BubiUser:
 		return json.loads(self.getSubscriptionInfo())["subscription_type"]
 	def getEndOfSubscription(self):
 		return json.loads(self.getSubscriptionInfo())["subscription_end"]
-	def callOtherEndpoint(self, endpoint, userData):
-		dataToPost = userData
-		dataToPost.update({"apikey": "Bbx3nGP291xEtDmq"})
-		dataToPost.update({"loginkey": self.getLoginKey()})
-		dataToPost.update({"show_errors": "1"})
-		dataToPost.update({"domain": "bh"})
-		return requests.post(
-			f'https://api-budapest.nextbike.net{endpoint}',
-			data = dataToPost
-		).text
+	def moreInfo(self):
+		return self.callOtherEndpoint("/api/getUserDetails.json", {})
+	def getRentalDetails(self):
+		return self.callOtherEndpoint("/api/getRentalDetails.json", {})
+	def register(self):
+		return "Coming soon..."
 class BubiMap:
 	def listAllStations(self):
 		return requests.get("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/bicycle-rental.json?key=bkk-web&version=4").text
