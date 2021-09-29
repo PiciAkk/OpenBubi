@@ -54,7 +54,7 @@ testUser = openbubi.BubiUser("phoneNumber", "pin")
 testMap = openbubi.BubiMap()
 ```
 
-Then print the name of the `testUser` instance
+Then print the name of the `testUser` user
 
 ```python
 print(testUser.getScreenName())
