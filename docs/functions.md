@@ -18,4 +18,12 @@
 
 ## `BubiMap()`
 
-- *Work in progress...*
+- `listAllStations()` - returns a JSON object containing all stations
+- `listAllBikes()` - returns a JSON object containing all bikes
+- `listAllBikesFormatted()` - returns a JSON object containing all bikes (without the unnecessary parts)
+- `listAllStationsFormatted()` - returns a JSON object containing all stations (without the unnecessary parts)
+- `getNearestStation(lat, lon)` - returns the nearest station's name by latitude, and longitude (Using the Pythagorean theorem)
+- `getNearestStationByAddress(address)` - returns the nearest station's name by address (using `getNearestStation()`, and OpenStreetMap API)
+- `listAllBikesOnStations(stationName)` - returns all the bikes on a station (and the number of these bikes, and information about these bikes)
+- `countBikesOnStation(stationName)` - counts all the bikes on a station (using `listAllBikesOnStation()`), and returns the counter
+- `getCoordinateOfStation(stationName)` - returns the coordinates of a station (latitude, longitude)
