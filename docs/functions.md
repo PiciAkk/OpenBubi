@@ -1,6 +1,7 @@
 # Bult-in functions
 
 ## `BubiUser(phoneNumber, pin)`
+
 - `info()` - returns information in JSON (not dictionary) format -> if you want it in dictionary format, `import json`, and use `json.loads(info())`
 - `getScreenName()` - grabs the screen name from `info()`, and returns it
 - `getLoginKey()` - grabs the login key from `info()`, and returns it
@@ -14,5 +15,7 @@
 - `moreInfo()` - returns a LOT of information about the user
 - `getRentalDetails()` - returns information about the current rental
 - `register()` - *Work in progress...*
+
 ## `BubiMap()`
+
 - *Work in progress...*
