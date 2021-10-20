@@ -37,8 +37,10 @@ class BubiUser:
 		return self.callOtherEndpoint('/api/rent.json', {"bike": bikeNumber})
 	def getActiveRentals(self):
 		return self.callOtherEndpoint('/api/getOpenRentals.json', {})
+	def getRentals(self):
+		return self.callOtherEndpoint('/api/rentals.json', {})
 	def getClosedRentals(self):
-        	return json.dumps(json.loads(self.callOtherEndpoint("/api/rentals.json", {}))["closed_rentals"])
+        	return json.dumps(json.loads(self.getRentals())["closed_rentals"])
 	def getPaymentLinks(self):
 		return self.callOtherEndpoint('/api/getPaymentLinks.json', {})
 	def getSubscriptionInfo(self):
