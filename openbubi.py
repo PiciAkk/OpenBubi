@@ -34,11 +34,15 @@ class BubiUser:
 			data = dataToPost
 		).text
 	def rentBike(self, bikeNumber):
-		return callOtherEndpoint('/api/rent.json', {"bike": bikeNumber})
+		return self.callOtherEndpoint('/api/rent.json', {"bike": bikeNumber})
+	def getRentals(self):
+		return self.callOtherEndpoint('/api/rentals.json', {})
+	def getClosedRentals(self):
+		return json.dumps(json.loads(self.getRentals())["closed_rentals"])
 	def getActiveRentals(self):
-		return callOtherEndpoint('/api/getOpenRentals.json', {})
+		return self.callOtherEndpoint('/api/getOpenRentals.json', {})
 	def getPaymentLinks(self):
-		return callOtherEndpoint('/api/getPaymentLinks.json', {})
+		return self.callOtherEndpoint('/api/getPaymentLinks.json', {})
 	def getSubscriptionInfo(self):
 		linkUrl = json.loads(self.getPaymentLinks())["paymentlinks"][0]["link_url"]
 		contents = requests.get(linkUrl).text

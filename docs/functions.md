@@ -7,8 +7,10 @@
 - `getLoginKey()` - grabs the login key from `info()`, and returns it
 - `callOtherEndpoint(relativeURL, data)` (*relativeURL needs to be a string, and data needs to be a dictionary*) - calls the specified `endpoint` with the specified `data` (plus `loginkey`, `domain`, `apikey`, `show_errors`), and returns the output. (*you can find endpoints [here](https://github.com/h0chi/nextbike-api-reverse-engineering)*)
 - `rentBike(bikeNumber)` (*bikeNumber needs to be a string*) - rents a bike, and returns the output
+- `getRentals()` - returns information about the user's rentals
+- `getClosedRentals()` - returns closed rentals from `getRentals()`
 - `getActiveRentals()` - returns active rentals
-- `getPaymentLinks()` - returns informations about payment links
+- `getPaymentLinks()` - returns information about payment links
 - `getSubscriptionInfo()` - returns the end of the subscription, and the type of the subscription
 - `getSubScriptionType()` - returns the type of the subscription based on `getSubscriptionInfo()` (monthly, or annual)
 - `getEndOfSubscription()` - returns the end of the subscription based on `getSubscriptionInfo()` (date)
