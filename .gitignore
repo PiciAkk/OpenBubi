@@ -1,3 +1,6 @@
-credentials.py # it contains personal informations
 __pycache__
+
 bruteforce.py
+
+credentials.py
+# contains personal info
