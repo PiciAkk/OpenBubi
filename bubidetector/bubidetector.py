@@ -1,5 +1,5 @@
 import sys # for path manipulation
-sys.path.append("../") # add openbubi.py's path to the current path
+sys.path.append("../") # add openbubi.py's folder to the current path
 import openbubi
 import json # for converting the command-line output to dictionary
 import os # for running termux-location
