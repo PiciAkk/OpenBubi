@@ -13,7 +13,7 @@ def needsToBeList(variable):
 def needsToBeInteger(variable):
 	if type(variable).__name__ != "int":
 		raise Exception(f"Provided parameter ({variable}) isn't an integer")
-def needsToBeDictionary():
+def needsToBeDictionary(variable):
 	if type(variable).__name__ != "dict":
 		raise Exception(f"Provided parameter ({variable}) isn't a dictionary")
 
