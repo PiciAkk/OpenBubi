@@ -4,8 +4,23 @@ import json
 import math
 from geopy.geocoders import Nominatim
 
+def needsToBeString(variable):
+	if type(variable).__name__ != "str":
+		raise Exception(f"Provided parameter ({variable}) isn't a string")
+def needsToBeList(variable):
+	if type(variable).__name__ != "list":
+		raise Exception(f"Provided parameter ({variable}) isn't a list")
+def needsToBeInteger(variable):
+	if type(variable).__name__ != "int":
+		raise Exception(f"Provided parameter ({variable}) isn't an integer")
+def needsToBeDictionary():
+	if type(variable).__name__ != "dict":
+		raise Exception(f"Provided parameter ({variable}) isn't a dictionary")
+
 class BubiUser:
 	def __init__(self, mobile, pin):
+		needsToBeString(mobile)
+		needsToBeString(pin)
 		self.mobile = mobile
 		self.pin = pin
 	def info(self):
@@ -24,6 +39,8 @@ class BubiUser:
 	def getLoginKey(self):
 		return json.loads(self.info())["user"]["loginkey"]
 	def callOtherEndpoint(self, endpoint, userData):
+		needsToBeString(endpoint)
+		needsToBeDictionary(userData)
 		dataToPost = userData
 		dataToPost.update({"apikey": "Bbx3nGP291xEtDmq"})
 		dataToPost.update({"loginkey": self.getLoginKey()})
@@ -34,6 +51,7 @@ class BubiUser:
 			data = dataToPost
 		).text
 	def rentBike(self, bikeNumber):
+		needsToBeString(bikeNumber)
 		return self.callOtherEndpoint('/api/rent.json', {"bike": bikeNumber})
 	def getRentals(self):
 		return self.callOtherEndpoint('/api/rentals.json', {})
@@ -79,6 +97,8 @@ class BubiMap:
 	def listAllStationsFormatted(self):
 		return json.dumps(json.loads(self.listAllStations())['data']['list'])
 	def getNearestStation(self, lat, lon):
+		needsToBeString(lat)
+		needsToBeString(lon)
 		stations = json.loads(self.listAllStationsFormatted())
 		differences = {}
 		for i in range(len(stations)):
@@ -88,9 +108,11 @@ class BubiMap:
 		sortedDifferences = dict(sorted(differences.items(), key=lambda item: item[1]))
 		return next(iter(sortedDifferences))
 	def getNearestStationByAddress(self, address):
+		needsToBeString(address)
 		location = Nominatim(user_agent="OpenBubi").geocode(address)
 		return self.getNearestStation(location.latitude, location.longitude)
 	def listAllBikesOnStation(self, stationName):
+		needsToBeString(stationName)
 		stations = json.loads(self.listAllBikesFormatted())
 		for i in range(len(stations)):
 			currentStation = stations[i]
@@ -101,8 +123,10 @@ class BubiMap:
 				except:
 					return "No bikes in station"
 	def countBikesOnStation(self, stationName):
+		needsToBeString(stationName)
 		return len(json.loads(self.listAllBikesOnStation(stationName)))
 	def getCoordinateOfStation(self, stationName):
+		needsToBeString(stationName)
 		stations = json.loads(self.listAllStationsFormatted())
 		for i in range(len(stations)):
 			currentStation = stations[i]
