@@ -19,7 +19,7 @@ nearestStation = Budapest.getNearestStation(lat, lon) # call getNearestStation()
 nearestStationInfo = {
   "name": nearestStation,
   "bikesOnStation": Budapest.countBikesOnStation(nearestStation), # count the bikes on that station
-  "coordinates": json.loads(Budapest.getCoordinateOfStation(nearestStation)) # get the coordinates of that station, and convert it to a dictionary
+  "coordinates": json.loads(Budapest.getCoordinatesOfStation(nearestStation)) # get the coordinates of that station, and convert it to a dictionary
 }
 
 startingPoint = urllib.parse.quote(f"{lat},{lon}")

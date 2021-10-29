@@ -16,6 +16,9 @@ def needsToBeInteger(variable):
 def needsToBeDictionary(variable):
 	if type(variable).__name__ != "dict":
 		raise Exception(f"Provided parameter ({variable}) isn't a dictionary")
+def needsToBeFloat(variable):
+	if type(variable).__name__ != "float":
+		raise Exception(f"Provided parameter ({variable}) isn't a float")
 
 class BubiUser:
 	def __init__(self, mobile, pin):
@@ -85,8 +88,6 @@ class BubiUser:
 		return self.callOtherEndpoint("/api/getUserDetails.json", {})
 	def getRentalDetails(self):
 		return self.callOtherEndpoint("/api/getRentalDetails.json", {})
-	def register(self):
-		return "Coming soon..."
 class BubiMap:
 	def listAllStations(self):
 		return requests.get("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/bicycle-rental.json?key=bkk-web&version=4").text
@@ -96,9 +97,9 @@ class BubiMap:
 		return json.dumps(json.loads(self.listAllBikes())['countries'][0]['cities'][0]['places'])
 	def listAllStationsFormatted(self):
 		return json.dumps(json.loads(self.listAllStations())['data']['list'])
-	def getNearestStation(self, lat, lon):
-		needsToBeString(lat)
-		needsToBeString(lon)
+	def getNearestStations(self, lat, lon):
+		needsToBeFloat(lat)
+		needsToBeFloat(lon)
 		stations = json.loads(self.listAllStationsFormatted())
 		differences = {}
 		for i in range(len(stations)):
@@ -106,7 +107,11 @@ class BubiMap:
 			difference = math.sqrt(abs(currentStation["lat"] - lat)**2 + abs(currentStation["lon"] - lon)**2)
 			differences.update({currentStation["name"]: difference})
 		sortedDifferences = dict(sorted(differences.items(), key=lambda item: item[1]))
-		return next(iter(sortedDifferences))
+		return json.dumps(sortedDifferences)
+	def getNearestStation(self, lat, lon):
+		needsToBeFloat(lat)
+		needsToBeFloat(lon)
+		return next(iter(json.loads(self.getNearestStations(lat, lon))))
 	def getNearestStationByAddress(self, address):
 		needsToBeString(address)
 		location = Nominatim(user_agent="OpenBubi").geocode(address)
@@ -125,7 +130,7 @@ class BubiMap:
 	def countBikesOnStation(self, stationName):
 		needsToBeString(stationName)
 		return len(json.loads(self.listAllBikesOnStation(stationName)))
-	def getCoordinateOfStation(self, stationName):
+	def getCoordinatesOfStation(self, stationName):
 		needsToBeString(stationName)
 		stations = json.loads(self.listAllStationsFormatted())
 		for i in range(len(stations)):
@@ -136,3 +141,9 @@ class BubiMap:
 				coordinates.update({"lat": currentStation["lat"]})
 				coordinates.update({"lon": currentStation["lon"]})
 				return json.dumps(coordinates)
+
+class BubiHelpers:
+	def register():
+		return "Coming soon..."
+	def pinReset():
+		return "Coming soon..."
