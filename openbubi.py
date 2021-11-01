@@ -54,8 +54,8 @@ class BubiUser:
 			data = dataToPost
 		).text
 	def rentBike(self, bikeNumber):
-		needsToBeString(bikeNumber)
-		return self.callOtherEndpoint('/api/rent.json', {"bike": bikeNumber})
+		needsToBeInteger(bikeNumber)
+		return self.callOtherEndpoint('/api/rent.json', {"bike": str(bikeNumber)})
 	def getRentals(self):
 		return self.callOtherEndpoint('/api/rentals.json', {})
 	def getClosedRentals(self):
@@ -143,7 +143,19 @@ class BubiMap:
 				return json.dumps(coordinates)
 
 class BubiHelpers:
-	def register():
+	def register(self):
 		return "Coming soon..."
-	def pinReset():
+	def pinReset(self, mobile):
+		needsToBeString(mobile)
 		return "Coming soon..."
+	def getNews(self):
+		return requests.post(
+			"https://api-budapest.nextbike.net/api/getNews.json",
+			data = {
+				"fallback_domain": "bh",
+				"language": "hu",
+				"apikey": "Bbx3nGP291xEtDmq",
+				"show_errors": "1",
+				"domain": "bh"
+			}
+		).text
