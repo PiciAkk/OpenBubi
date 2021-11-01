@@ -159,3 +159,13 @@ class BubiHelpers:
 				"domain": "bh"
 			}
 		).text
+	def getNewsFormatted(self):
+		return json.dumps(json.loads(self.getNews())["news_collection"])
+	def readNew(self, uid):
+		needsToBeInteger(uid)
+		news = json.loads(self.getNewsFormatted())
+		for i in news:
+			if i["uid"] == uid:
+				output = requests.get(i["url_webview"])
+				output.encoding = output.apparent_encoding
+				return output.text
